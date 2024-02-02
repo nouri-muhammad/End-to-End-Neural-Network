@@ -1,0 +1,15 @@
+dill
+django
+ipython
+matplotlib
+numpy
+pandas
+psycopg2
+pyarrow
+pymongo
+scrapy
+scikit-learn
+seaborn
+tensorflow
+Jinja2
+-e .
