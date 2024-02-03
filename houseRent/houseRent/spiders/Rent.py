@@ -9,6 +9,7 @@ class RentSpider(scrapy.Spider):
     name = "Rent"
     allowed_domains = ["apartments.gaijinpot.com"]
     start_urls = ["https://apartments.gaijinpot.com/en/rent/listing"]
+    # start_urls = ["https://apartments.gaijinpot.com/en/rent/listing?page=9"]
     item = 0
     while True:
         try:
@@ -19,10 +20,13 @@ class RentSpider(scrapy.Spider):
 
     def parse(self, response):
         apartments = response.xpath("//div[@class='property-listing listing-special']")
+        if len(apartments) == 0:
+            apartments = response.xpath("//div[@class='property-listing']")
 
         for apartment in apartments:
             apartment_url = apartment.xpath(".//div[@class='listing-footer']//div[@class='listing-right-col']/a/@href").get()
             if apartment_url:
+                apartment_url = 'https://apartments.gaijinpot.com' + apartment_url
                 time.sleep(1)
                 yield response.follow(apartment_url, callback=self.parse_apartment_page)
 
@@ -33,7 +37,7 @@ class RentSpider(scrapy.Spider):
         next_page = response.xpath("//div[@class='clearfix mt-30 mb-30']//ul[@class='paginator']//li[@class='pagination-next']/a/@href").get()
         if next_page and self.item < self.count:
             time.sleep(random.uniform(1, 2))
-            next_page_url = 'http://apartments.gaijinpot.com' + next_page
+            next_page_url = 'https://apartments.gaijinpot.com' + next_page
             yield response.follow(next_page_url, callback=self.parse)
 
     @staticmethod

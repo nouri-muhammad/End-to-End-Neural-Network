@@ -17,7 +17,7 @@ NEWSPIDER_MODULE = "houseRent.spiders"
 #USER_AGENT = "houseRent (+http://www.yourdomain.com)"
 
 # Obey robots.txt rules
-ROBOTSTXT_OBEY = True
+ROBOTSTXT_OBEY = False
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
@@ -64,7 +64,11 @@ ROBOTSTXT_OBEY = True
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
    "houseRent.pipelines.HouserentPipeline": 300,
+   'houseRent.pipelines.MongoDBPipeline': 400,
 }
+MONGO_URI = 'mongodb://localhost:27017/'
+DB_NAME = 'apartments'
+COLLECTION_NAME = 'apartment'
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
@@ -92,3 +96,5 @@ REQUEST_FINGERPRINTER_IMPLEMENTATION = "2.7"
 TWISTED_REACTOR = "twisted.internet.asyncioreactor.AsyncioSelectorReactor"
 FEED_EXPORT_ENCODING = "utf-8"
 RETRY_TIMES = 15
+REDIRECT_ENABLED = True
+REDIRECT_MAX_TIMES = 20
