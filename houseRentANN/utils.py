@@ -1,4 +1,4 @@
-# import dill
+import dill
 import numpy as np
 import os
 import pandas as pd
@@ -70,6 +70,22 @@ def closest_station_distance(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
+def save_object(file_path, obj) -> None:
+    """
+    Saves an object as a pickle file in the specified file path.
+    :param file_path: the file path to save the object.
+    :param obj: the object to save.
+    :return: None
+    """
+    try:
+        dir_path = os.path.dirname(file_path)
+        os.makedirs(dir_path, exist_ok=True)
+        with open(file=file_path, mode="wb") as file_obj:
+            dill.dump(obj, file_obj)
+    except Exception as e:
+        raise CustomException(e, sys)
+
+
 class ReadRawData:
     def __init__(self, mongo_uri="mongodb://localhost:27017/", db_name="apartments", collection_name="apartment"):
         """
@@ -101,31 +117,3 @@ class ReadRawData:
         Closes the connection to the MongoDB database.
         """
         self.client.close()
-
-
-class SaveTrainData:
-    def __init__(self, mongo_uri="mongodb://localhost:27017/", db_name="apartments"):
-        self.mongo_uri = mongo_uri
-        self.db_name = db_name
-        self.client = MongoClient(self.mongo_uri)
-        self.db = self.client[self.db_name]
-
-    def save_data(self):
-        pass
-
-    def close_database(self):
-        pass
-
-
-class SaveTestData:
-    def __init__(self):
-        pass
-
-    def open_database(self):
-        pass
-
-    def save_data(self):
-        pass
-
-    def close_database(self):
-        pass

@@ -1,9 +1,11 @@
+import os
 import sys
 from houseRentANN.exception import CustomException
 from houseRentANN.logger import logging
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import MinMaxScaler, OneHotEncoder
+from houseRentANN.utils import save_object
 
 
 class DataTransformation:
@@ -55,6 +57,13 @@ class DataTransformation:
             logging.info("Converting x_train and x_test into Numpy Arrays")
             x_train_arr = input_feature_train_arr.toarray()
             x_test_arr = input_feature_test_arr.toarray()
+
+            logging.info("Save the Preprocessor Object in a Pickle File")
+            preprocessor_obj_file_path = os.path.join("data", "preprocessor.pkl")
+            save_object(
+                file_path=preprocessor_obj_file_path,
+                obj=preprocessor_obj
+            )
 
             return (
                 x_train_arr,
