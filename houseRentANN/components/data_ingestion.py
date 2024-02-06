@@ -1,9 +1,5 @@
-import matplotlib.pyplot as plt
-import numpy as np
-import os
-import pandas as pd
-import seaborn as sns
 import sys
+from data_transformation import DataTransformation
 from houseRentANN.exception import CustomException
 from houseRentANN.logger import logging
 from houseRentANN.utils import (
@@ -41,9 +37,11 @@ class DataIngestion:
             df['renewal_fee'] = df['renewal_fee'].fillna(0)
             df['short_term_stay'] = df['short_term_stay'].fillna("Not Available")
             df['short_term_stay'] = df['short_term_stay'].map({"Available": 1, "Not Available": 0})
+            df['short_term_stay'] = df['short_term_stay'].astype(float)
             most_repeated = df['direction_facing'].value_counts().keys()[0]
             df['direction_facing'] = df['direction_facing'].fillna(most_repeated)
-            df['nearest_station_distance'] = df['nearest_station'].apply(lambda x: x[x.find("(")+1: x.find("min")-1] if x is not None else None)
+            df['nearest_station_distance'] = (df['nearest_station'].apply
+                                              (lambda x: x[x.find("(")+1: x.find("min")-1] if x is not None else None))
             most_repeated = df['nearest_station_distance'].value_counts().keys()[0]
             df['nearest_station_distance'] = df['nearest_station_distance'].fillna(most_repeated)
 
@@ -74,4 +72,6 @@ class DataIngestion:
 
 if __name__ == '__main__':
     obj = DataIngestion()
-    x_train, x_test, y_train, y_test = obj.initiate_data_ingestion()
+    x_train_df, x_test_df, y_train_df, y_test_df = obj.initiate_data_ingestion()
+    data_transform = DataTransformation(x_train_df, x_test_df, y_train_df, y_test_df)
+    x_train_arr, y_train_arr, x_test_arr, y_test_arr = data_transform.initiate_data_transformation()

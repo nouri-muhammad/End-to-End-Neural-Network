@@ -103,6 +103,29 @@ class ReadRawData:
         self.client.close()
 
 
+class SaveTrainData:
+    def __init__(self, mongo_uri="mongodb://localhost:27017/", db_name="apartments"):
+        self.mongo_uri = mongo_uri
+        self.db_name = db_name
+        self.client = MongoClient(self.mongo_uri)
+        self.db = self.client[self.db_name]
+
+    def save_data(self):
+        pass
+
+    def close_database(self):
+        pass
 
 
+class SaveTestData:
+    def __init__(self):
+        pass
 
+    def open_database(self):
+        pass
+
+    def save_data(self):
+        pass
+
+    def close_database(self):
+        pass
