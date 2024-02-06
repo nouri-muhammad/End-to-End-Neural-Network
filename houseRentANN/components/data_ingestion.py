@@ -1,5 +1,6 @@
 import sys
 from data_transformation import DataTransformation
+from model_trainer import ModelTrainer
 from houseRentANN.exception import CustomException
 from houseRentANN.logger import logging
 from houseRentANN.utils import (
@@ -75,3 +76,5 @@ if __name__ == '__main__':
     x_train_df, x_test_df, y_train_df, y_test_df = obj.initiate_data_ingestion()
     data_transform = DataTransformation(x_train_df, x_test_df, y_train_df, y_test_df)
     x_train_arr, y_train_arr, x_test_arr, y_test_arr = data_transform.initiate_data_transformation()
+    model_trainer = ModelTrainer(x_train_arr, y_train_arr, x_test_arr, y_test_arr)
+    model_trainer.initiate_model_trainer()
