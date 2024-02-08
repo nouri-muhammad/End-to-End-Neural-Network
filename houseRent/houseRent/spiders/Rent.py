@@ -9,11 +9,10 @@ class RentSpider(scrapy.Spider):
     name = "Rent"
     allowed_domains = ["apartments.gaijinpot.com"]
     start_urls = ["https://apartments.gaijinpot.com/en/rent/listing"]
-    # start_urls = ["https://apartments.gaijinpot.com/en/rent/listing?page=9"]
     item = 0
     while True:
         try:
-            count = int(input("Insert the number of items to scrape: "))
+            count = int(os.environ.get('TOTAL_APARTMENTS', 0))
             break
         except ValueError:
             print("Invalid Entry")
