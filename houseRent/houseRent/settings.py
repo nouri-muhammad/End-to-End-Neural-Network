@@ -67,7 +67,7 @@ ITEM_PIPELINES = {
    'houseRent.pipelines.MongoDBPipeline': 400,
 }
 MONGO_URI = 'mongodb://localhost:27017/'
-DB_NAME = 'apartments_test'
+DB_NAME = 'apartments'
 COLLECTION_NAME = 'apartment'
 
 # Enable and configure the AutoThrottle extension (disabled by default)
