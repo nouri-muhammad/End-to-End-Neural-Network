@@ -1,5 +1,4 @@
 dill
-django
 ipython
 matplotlib
 numpy
@@ -11,5 +10,5 @@ scrapy
 scikit-learn
 seaborn
 tensorflow
-Jinja2
+tk
 -e .
