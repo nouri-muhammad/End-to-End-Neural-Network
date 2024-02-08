@@ -11,6 +11,8 @@ Running Process:
 To install the libraries:      pip install -r requirements.txt
 After installation:
 Run the following command in the base directory of project:
-  python automation.py <number of items to scrape>   =>    python scrape 10000
+
+*  python automation.py <number of items to scrape>   =>    python scrape 10000
+
 This command initiates scraping andd scrape the number of items you have passed in it and save them all in a Mongo database, then it initiates the neural network model training, train and saves the model alongside the preprocessor object in a folder called "data", and lastly runs the GUI for user input and makes prediction based on the created model.
 
